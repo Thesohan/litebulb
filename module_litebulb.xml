@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_litebulb" default="compile.module.litebulb">
+  <dirname property="module.litebulb.basedir" file="${ant.file.module_litebulb}"/>
+  
+  <property name="module.jdk.home.litebulb" value="${jdk.home.android_api_22_platform}"/>
+  <property name="module.jdk.bin.litebulb" value="${jdk.bin.android_api_22_platform}"/>
+  <property name="module.jdk.classpath.litebulb" value="jdk.classpath.android_api_22_platform"/>
+  
+  <property name="compiler.args.litebulb" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="litebulb.output.dir" value="${module.litebulb.basedir}/out/production/litebulb"/>
+  <property name="litebulb.testoutput.dir" value="${module.litebulb.basedir}/out/test/litebulb"/>
+  
+  <path id="litebulb.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="litebulb.module.production.classpath">
+    <path refid="${module.jdk.classpath.litebulb}"/>
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  <path id="litebulb.runtime.production.module.classpath">
+    <pathelement location="${litebulb.output.dir}"/>
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  <path id="litebulb.module.classpath">
+    <path refid="${module.jdk.classpath.litebulb}"/>
+    <pathelement location="${litebulb.output.dir}"/>
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  <path id="litebulb.runtime.module.classpath">
+    <pathelement location="${litebulb.testoutput.dir}"/>
+    <pathelement location="${litebulb.output.dir}"/>
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.litebulb">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.litebulb">
+    <patternset refid="excluded.from.module.litebulb"/>
+  </patternset>
+  
+  <path id="litebulb.module.sourcepath">
+    <dirset dir="${module.litebulb.basedir}">
+      <include name="android/app/src/main/java"/>
+      <include name="gen"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.litebulb" depends="compile.module.litebulb.production,compile.module.litebulb.tests" description="Compile module litebulb"/>
+  
+  <target name="compile.module.litebulb.production" depends="register.custom.compilers" description="Compile module litebulb; production classes">
+    <mkdir dir="${litebulb.output.dir}"/>
+    <javac2 destdir="${litebulb.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.litebulb}/javac">
+      <compilerarg line="${compiler.args.litebulb}"/>
+      <bootclasspath refid="litebulb.module.bootclasspath"/>
+      <classpath refid="litebulb.module.production.classpath"/>
+      <src refid="litebulb.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.litebulb"/>
+    </javac2>
+    
+    <copy todir="${litebulb.output.dir}">
+      <fileset dir="${module.litebulb.basedir}/android/app/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.litebulb.basedir}/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.litebulb.tests" depends="register.custom.compilers,compile.module.litebulb.production" description="compile module litebulb; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.litebulb" description="cleanup module">
+    <delete dir="${litebulb.output.dir}"/>
+    <delete dir="${litebulb.testoutput.dir}"/>
+  </target>
+</project>

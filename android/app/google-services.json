@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "216612531472",
+    "firebase_url": "https://litebulb-entertainment.firebaseio.com",
+    "project_id": "litebulb-entertainment",
+    "storage_bucket": "litebulb-entertainment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216612531472:android:6bd8ecd4f915a8a415c995",
+        "android_client_info": {
+          "package_name": "com.example.newartistproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216612531472-6gq4onbstibv5qgjgk8pdfkvpect6ub3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk6P1AbjHdS4RCcjHSEOGCnqCl1G_FPUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216612531472-6gq4onbstibv5qgjgk8pdfkvpect6ub3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
